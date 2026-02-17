@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinati - Homepage</title>
+    
+    <link rel="stylesheet" href="css/homepage.css"> 
+    
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+
+    <style>
+        /* 1. Applica Articulat CF a qualsiasi elemento */
+        * {
+            font-family: "articulat-cf", sans-serif !important;
+        }
+
+        /* 2. Peso Base: Medium (500). Impedisce pesi leggeri (300/400) */
+        body, p, span, div, a, li, button, input, textarea, label {
+            font-weight: 500 !important;
+        }
+
+        /* 3. Peso Titoli e Grassetto: Bold (700) */
+        h1, h2, h3, h4, h5, h6, strong, b, .logo, nav a, .accordion-item h3 {
+            font-weight: 700 !important;
+        }
+
+        /* 4. Extra Bold per il titolo principale Hero (opzionale, per impatto) */
+        .hero-content h1 {
+            font-weight: 800 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+ 
+
+        <div class="hero-content">
+            <h1>E se iniziassimo<br>a fare tutto insieme?</h1>
+            <div class="scroll-prompt" onclick="scrollToContent()">
+                <div class="arrow-down"></div>
+            </div>
+        </div>
+    </section>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+        <nav class="desktop-only-nav">
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="mobile-overlay-menu">
+            <div class="close-menu-btn" onclick="toggleMobileMenu()"></div>
+            <ul class="mobile-links">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section class="scrolling-text-container">
+            <div class="scrolling-text">
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+                <span>Quando la collaborazione prende forma</span>
+            </div>
+        </section>
+
+        <section class="product-carousel scroll-right">
+            <div class="carousel-track">
+                <a href="comarking.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/evidf.png" alt="Evidenziatore" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoMarking®</span></div>
+                </a>
+                <a href="cocutting.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/forbicif.png" alt="Forbici" class="product-img"></div>
+                    <div class="product-overlay"><span>CoCutting®</span></div>
+                </a>
+                <a href="cowriting.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/pennaf.png" alt="Penna" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoWriting®</span></div>
+                </a>
+                <a href="coeating.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/posatef.png" alt="Posate" class="product-img"></div>
+                    <div class="product-overlay"><span>CoEating®</span></div>
+                </a>
+                <a href="copressure.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/pressf.png" alt="Pressa" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoPressure®</span></div>
+                </a>
+                <a href="coscotch.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/scotchf.png" alt="Scotch" class="product-img"></div>
+                    <div class="product-overlay"><span>CoScotch®</span></div>
+                </a>
+                <a href="cohearing.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/stetof.png" alt="Stetoscopio" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoHearing®</span></div>
+                </a>
+            </div>
+        </section>
+
+        <section class="product-carousel scroll-left">
+            <div class="carousel-track">
+                <a href="coscrubs.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/camicif.png" alt="Camice" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoScrubs®</span></div>
+                </a>
+                <a href="cositting.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/sitf.png" alt="Sedia" class="product-img"></div>
+                    <div class="product-overlay"><span>CoSitting®</span></div>
+                </a>
+                <a href="cosanitizer.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/cosanitazerf.png" alt="Sanitizer" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoSanitizer®</span></div>
+                </a>
+                <a href="colistening.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/cuffiettef.png" alt="Cuffie" class="product-img"></div>
+                    <div class="product-overlay"><span>CoListening®</span></div>
+                </a>
+                <a href="cocup.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/cupf.png" alt="Tazza" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoCup®</span></div>
+                </a>
+                <a href="cobadge.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/badgef.png" alt="Badge" class="product-img"></div>
+                    <div class="product-overlay"><span>CoBadge®</span></div>
+                </a>
+                <a href="cohearing.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/stetof.png" alt="Stetoscopio" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoHearing®</span></div>
+                </a>
+            </div>
+        </section>
+
+        <section class="product-carousel scroll-right">
+            <div class="carousel-track">
+                <a href="cowalking.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/ciabattef.png" alt="Ciabatte" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoWalking®</span></div>
+                </a>
+                <a href="coclick.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/mousef.png" alt="Mouse" class="product-img"></div>
+                    <div class="product-overlay"><span>CoClick®</span></div>
+                </a>
+                <a href="cospeaking.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/micrf.png" alt="Microfono" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoSpeaking®</span></div>
+                </a>
+                <a href="codrawing.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/matitf.png" alt="Matita" class="product-img"></div>
+                    <div class="product-overlay"><span>CoDrawing®</span></div>
+                </a>
+                <a href="comask.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/maskf.png" alt="Mascherina" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoMask®</span></div>
+                </a>
+                <a href="codrink.html" class="product-item">
+                    <div class="image-area"><img src="assets2/oggetti/Drinking verde.png" alt="Bibita" class="product-img"></div>
+                    <div class="product-overlay"><span>CoDrinking®</span></div>
+                </a>
+                <a href="cocoffee.html" class="product-item">
+                    <div class="image-area"><img src="assets/oggetti/coffeef.png" alt="Caffè" class="product-img"></div> 
+                    <div class="product-overlay"><span>CoCoffee®</span></div>
+                </a>
+            </div>
+        </section>
+
+        <div class="container accordion-container">
+            <div class="intro-text">
+                <p> CoOrdinati è una collezione di 20 oggetti impossibili che ridefiniscono la quotidianità del lavoro. Organizzata in 5 aree tematiche, esplora gli aspetti centrali dell’esperienza lavorativa e i punti in cui è necessario immaginare nuovi modelli.</p>
+            </div>
+
+            <div class="accordion">
+    <a href="cocutting.html" style="text-decoration: none; display: block; color: inherit;">
+        <div class="accordion-item orange">
+            <div class="number">01 /</div>
+            <div class="content">
+                <h3>LAVORARE INSIEME</h3>
+                <div class="details">
+                    <p>Mettere in comune competenze, responsabilità e obiettivi significa spostarsi dall’“io” al “noi”. In un sistema sempre più individualista, collaborare diventa un atto di interdipendenza che rende possibile ciò che da soli non lo sarebbe.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="cohearing.html" style="text-decoration: none; display: block; color: inherit;">
+        <div class="accordion-item blue">
+            <div class="number">02 /</div>
+            <div class="content">
+                <h3>COSTRUIRE UN DIALOGO</h3>
+                <div class="details">
+                    <p>Il dialogo non è semplice scambio di informazioni, ma uno spazio in cui ascolto e confronto producono comprensione reciproca. È attraverso la condivisione di idee e contributi diversi che le differenze si trasformano in risorse e le decisioni prendono forma.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="coeating.html" style="text-decoration: none; display: block; color: inherit;">
+        <div class="accordion-item green">
+            <div class="number">03 /</div>
+            <div class="content">
+                <h3>CONDIVIDERE LA PAUSA</h3>
+                <div class="details">
+                    <p>La pausa non è interruzione del lavoro, ma un tempo necessario per ristabilire equilibrio e relazioni. Quando è condivisa, diventa uno spazio informale in cui nascono connessioni, idee e nuove energie.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="coscotch.html" style="text-decoration: none; display: block; color: inherit;">
+        <div class="accordion-item red">
+            <div class="number">04 /</div>
+            <div class="content">
+                <h3>EQUILIBRARE GLI SPAZI</h3>
+                <div class="details">
+                    <p>Gli ambienti di lavoro modellano comportamenti, concentrazione e possibilità di incontro. Organizzare lo spazio significa progettare come le persone si muovono, collaborano e convivono ogni giorno.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="comarking.html" style="text-decoration: none; display: block; color: inherit;">
+        <div class="accordion-item purple">
+            <div class="number">05 /</div>
+            <div class="content">
+                <h3>VALORIZZARE L'ALTRO</h3>
+                <div class="details">
+                    <p>Riconoscere l’altro come risorsa, e non come competizione, è alla base di un lavoro più equo e sostenibile. Differenze, competenze e fragilità diventano così elementi indispensabili per costruire contesti realmente umani.</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+        </div>
+
+        <div id="quiz-container" class="quiz-section">
+            <div id="start-card" class="quiz-card">
+                <h2>Scopri di quale oggetto hai più bisogno in questo momento</h2>
+                <button id="start-btn" class="quiz-btn main-btn">FAI IL QUIZ</button>
+            </div>
+            <div id="question-card" class="quiz-card" style="display:none;">
+                <p id="question-number" class="q-num"></p>
+                <h2 id="question-text"></h2>
+                <div id="answer-buttons" class="btn-grid"></div>
+            </div>
+            <div id="result-card" class="quiz-card" style="display:none;">
+    <p>L'oggetto che ti serve di più è:</p>
+    
+    <a id="result-link" href="#" class="result-link-wrapper">
+        <h1 id="object-title"></h1>
+        <p id="object-motto"></p>
+        <img id="object-image" src="" alt="Oggetto risultato" class="result-img">
+    </a>
+    
+    <button onclick="location.reload()" class="quiz-btn main-btn">RIFAI IL QUIZ</button>
+</div>
+        </div>
+    </main>
+
+<script>
+    // 1. Scroll Fluido alla sezione successiva
+function scrollToContent() {
+        window.scrollTo({
+            top: window.innerHeight, 
+            behavior: 'smooth'
+        });
+    }
+
+    // 2. Menu Mobile
+    function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-overlay-menu");
+        const hamburger = document.querySelector(".hamburger-icon");
+        menu.classList.toggle("open");
+        hamburger.classList.toggle("active");
+    }
+
+    // 3. Accordion
+    function toggleAccordion(element) {
+        if (window.innerWidth <= 768) {
+            const allItems = document.querySelectorAll('.accordion-item');
+            allItems.forEach(item => {
+                if (item !== element) item.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
+    }
+
+    // 4. Caroselli Infiniti
+    const tracks = document.querySelectorAll('.carousel-track');
+    const speed = 0.5;
+    const positions = new Map();
+
+    tracks.forEach(track => {
+        const items = Array.from(track.children);
+        for (let i = 0; i < 2; i++) {
+            items.forEach(item => track.appendChild(item.cloneNode(true)));
+        }
+        const carousel = track.parentElement;
+        const singleSetWidth = track.scrollWidth / 3;
+        if (carousel.classList.contains('scroll-left')) {
+            positions.set(track, singleSetWidth);
+        } else {
+            positions.set(track, 0);
+        }
+    });
+
+    function animateCarousels() {
+        tracks.forEach(track => {
+            const carousel = track.parentElement;
+            let currentPosition = positions.get(track);
+            const singleSetWidth = track.scrollWidth / 3;
+
+            if (carousel.classList.contains('scroll-right')) {
+                currentPosition += speed;
+                if (currentPosition >= singleSetWidth) currentPosition = 0;
+            } else if (carousel.classList.contains('scroll-left')) {
+                currentPosition -= speed;
+                if (currentPosition <= 0) currentPosition = singleSetWidth;
+            }
+            track.style.transform = `translateX(${-currentPosition}px)`;
+            positions.set(track, currentPosition);
+        });
+        requestAnimationFrame(animateCarousels);
+    }
+    window.addEventListener('load', animateCarousels);
+</script>
+<script src="js/quiz.js"></script>
+</body>
+<footer class="site-footer">
+    <div class="footer-top">
+        <h2 class="footer-logo">CoOrdinati®</h2>
+        <h3 class="footer-tagline">Quando la collaborazione prende forma</h3>
+    </div>
+
+    <div class="footer-info-grid">
+        <div class="info-col desc-col">
+            <p>Campagna di comunicazione per promuovere il benessere
+            e la collaborazione nei luoghi di lavoro.</p>
+            <img src="assets/Cartiglio.png" alt="Cartiglio Rete CUG" class="footer-cartiglio">
+        </div>
+
+        <div class="info-col contact-col">
+            <p class="ig-intro">Per nuovi contenuti e riflessioni<br>quotidiane sulla collaborazione:</p>
+            <a href="https://www.instagram.com/coordinati.milano" target="_blank" class="ig-link">@coordinati.milano</a>
+        </div>
+
+        <div class="info-col inst-col">
+            <p><strong>Progetto accademico — Politecnico di Milano</strong><br>
+            <strong>Scuola del Design</strong><br>
+            Laboratorio di Sintesi Finale C2 · A.A. 2025/2026<br>
+            <strong>Pausa caffè</strong><br>
+            Design della comunicazione e benessere nei luoghi di lavoro</p>
+        </div>
+    </div>
+</footer>
+</html>

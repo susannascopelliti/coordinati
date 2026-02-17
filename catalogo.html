@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo CoOrdinati®</title>
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+    
+    <style>
+        :root {
+            --line-color: #000000;
+            --text-color: #1a1a1a;
+            --bg-color: #ffffff;
+            --header-height: 70px;
+        }
+
+        /* --- RESET FONDAMENTALE --- */
+        * { box-sizing: border-box; }
+
+        body, h1, h2, h3, h4, p, span, div, a, button, input, textarea {
+            font-family: "articulat-cf", sans-serif;
+            font-weight: 500;
+            -webkit-font-smoothing: antialiased;
+            color: var(--text-color);
+            border-radius: 0 !important;
+        }
+
+        html, body {
+            width: 100%; margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            overflow: hidden;
+        }
+
+        /* --- HEADER --- */
+        #main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-height);
+            padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--line-color); 
+        }
+
+        .logo { 
+            font-family: "articulat-cf", sans-serif !important; 
+            font-size: 24px; font-weight: 800 !important; 
+            letter-spacing: -0.5px; z-index: 1001; 
+            text-decoration: none; color: #000; 
+        }
+
+        .desktop-only-nav ul { list-style: none; display: flex; margin: 0; padding: 0; align-items: center; }
+        .desktop-only-nav ul li { margin: 0 25px; }
+        .desktop-only-nav ul li a { 
+            font-family: "articulat-cf", sans-serif; font-weight: 700; 
+            font-size: 14px; 
+            position: relative; text-decoration: none; color: #000; 
+        }
+        .desktop-only-nav ul li a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background-color: #000; transition: width 0.3s; }
+        .desktop-only-nav ul li a:hover::after { width: 100%; }
+
+        .hamburger-icon { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 2000; }
+        .hamburger-icon span { width: 30px; height: 2px; background: #000; transition: all 0.3s ease; }
+
+        #mobile-overlay-menu {
+            display: flex; position: fixed; top: 0; right: -100%;
+            width: 100%; height: 100vh; background: #fff; z-index: 1999;
+            flex-direction: column; justify-content: center; align-items: center; 
+            transition: right 0.5s ease;
+        }
+        #mobile-overlay-menu.open { right: 0; }
+
+        .close-menu-btn { 
+            font-weight: 700 !important; font-size: 30px; 
+            position: absolute; top: 30px; right: 30px; cursor: pointer; color: #000;
+        }
+        .mobile-links { list-style: none; padding: 0; text-align: center; display: flex; flex-direction: column; gap: 40px; }
+        .mobile-links a { font-weight: 700 !important; font-size: 2.5rem; color: #000; text-decoration: none; }
+
+        /* --- LAYOUT CATALOGO --- */
+        .catalog-page-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            height: 100vh;
+            padding-top: 70px;
+        }
+
+        .catalog-fixed-info {
+            grid-column: 1; background-color: #fff;
+            border-right: 1px solid #000; padding: 40px 30px;
+            display: flex; flex-direction: column; justify-content: center;
+            overflow-y: auto;
+        }
+        .catalog-fixed-info h1 {
+            font-size: 4rem; font-weight: 800; line-height: 0.9;
+            letter-spacing: -2px; margin-bottom: 30px; margin-top: 0;
+        }
+        .catalog-fixed-info p { font-size: 1.1rem; line-height: 1.5; margin-bottom: 20px; font-weight: 500; }
+        
+        .request-copy-btn {
+            margin-top: 20px; padding: 15px 20px; background: #000; color: #fff; border: none;
+            font-size: 1rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: background 0.3s;
+        }
+        .request-copy-btn:hover { background: #333; }
+
+        .catalog-viewer-area {
+            grid-column: 2; background-color: #f4f4f4; width: 100%; height: 100%; position: relative;
+        }
+        .flipbook-wrapper { width: 100%; height: 100%; }
+
+        /* --- MODALE --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 3000;
+            justify-content: center; align-items: center;
+        }
+
+        .modal-box {
+            background: #fff;
+            padding: 40px;
+            width: 500px;
+            max-width: 90%; 
+            border: 1px solid #000;
+            position: relative;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute; top: 10px; right: 15px;
+            background: none; border: none; font-size: 30px;
+            cursor: pointer; font-weight: 700;
+        }
+        .modal-box h2 { font-weight: 800; font-size: 2rem; margin-bottom: 20px; }
+
+        .catalog-form { display: flex; flex-direction: column; gap: 15px; }
+
+        .catalog-form input, .catalog-form textarea {
+            padding: 15px; border: 1px solid #000;
+            font-family: "articulat-cf", sans-serif; font-weight: 500;
+            font-size: 1rem; background: #fff;
+            width: 100%; 
+        }
+        .catalog-form input::placeholder, .catalog-form textarea::placeholder { font-weight: 500; color: #666; }
+
+        /* --- SOLUZIONE GRID (FUNZIONA OVUNQUE) --- */
+        .row-inputs {
+            display: grid;
+            /* Crea due colonne identiche (50% e 50%) */
+            grid-template-columns: 1fr 1fr;
+            /* Se preferisci il CAP più piccolo, usa: grid-template-columns: 1fr 2fr; */
+            gap: 10px;
+            width: 100%;
+        }
+
+        /* Forza gli input a riempire la cella della griglia */
+        .row-inputs input {
+            width: 100% !important; 
+            min-width: 0; /* Impedisce overflow su schermi minuscoli */
+        }
+
+        .submit-btn {
+            padding: 15px; background: #000; color: #fff;
+            font-weight: 700; text-transform: uppercase;
+            border: none; cursor: pointer; margin-top: 10px; width: 100%;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            html, body { overflow: auto; height: auto; }
+            #main-header { padding: 0 20px; height: 60px; }
+            .desktop-only-nav { display: none !important; }
+            .hamburger-icon { display: flex; }
+
+            .catalog-page-container {
+                display: flex; flex-direction: column;
+                height: auto; padding-top: 60px;
+            }
+
+            .catalog-fixed-info {
+                width: 100%; border-right: none; border-bottom: 1px solid #000;
+                padding: 40px 20px; height: auto;
+            }
+            .catalog-fixed-info h1 { font-size: 2.5rem; }
+
+            .catalog-viewer-area { width: 100%; height: 60vh; }
+            
+            .modal-box {
+                padding: 25px; 
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+        <nav class="desktop-only-nav">
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="mobile-overlay-menu">
+            <div class="close-menu-btn" onclick="toggleMobileMenu()"></div>
+            <ul class="mobile-links">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="catalog-page-container">
+        <div class="catalog-fixed-info">
+            <h1>Catalogo</h1>
+            <p>Il catalogo della campagna comunicativa “CoOrdinati®” è stato progettato per essere consultato fisicamente nelle principali aree comuni dei luoghi di lavoro.</p>
+            <p>L'obiettivo è quello di sensibilizzare e favorire un cambiamento nelle abitudini e nei comportamenti individuali, spesso guidati da un pensiero troppo individualista.</p>
+            <p>È qui disponibile anche una versione sfogliabile online, per chi desidera consultarlo dal proprio dispositivo.</p>
+            <button class="request-copy-btn" id="openModal">Richiedi la tua copia cartacea</button>
+        </div>
+
+        <div class="catalog-viewer-area">
+            <div class="flipbook-wrapper">
+                <iframe allowfullscreen="" allow="clipboard-write" scrolling="no" class="fp-iframe" style="border: 0px; width: 100%; height: 600px;" src="https://heyzine.com/flip-book/13cdd4fb02.html"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <div id="catalog-modal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" id="closeModal">×</button>
+            <h2 style="margin-top:0">Richiedi una copia</h2>
+            <form class="catalog-form">
+                <input type="text" placeholder="Nome e cognome" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Indirizzo completo" required>
+                
+                <div class="row-inputs">
+                    <input type="text" placeholder="CAP" required>
+                    <input type="text" placeholder="Città" required>
+                </div>
+                
+                <textarea placeholder="Note (facoltativo)"></textarea>
+                <button type="submit" class="submit-btn">Invia richiesta</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById("mobile-overlay-menu").classList.toggle("open");
+            document.querySelector(".hamburger-icon").classList.toggle("active");
+        }
+
+        const openBtn = document.getElementById('openModal');
+        const modal = document.getElementById('catalog-modal');
+        const closeBtn = document.getElementById('closeModal');
+
+        if(openBtn) {
+            openBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'flex';
+            });
+        }
+
+        if(closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+
+        if(modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

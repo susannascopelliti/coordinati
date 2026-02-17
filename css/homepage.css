@@ -1,0 +1,562 @@
+:root {
+    --border-color: #333;
+    --orange: #E15700;
+    --blue: #0465A6;
+    --green: #83b72a;
+    --red: #f02746;
+    --purple: #d0acff;
+    --header-height: 70px;
+}
+
+
+* { box-sizing: border-box; }
+
+body, h1, h2, h3, h4, p, span, div {
+    font-family: "nome-del-font", sans-serif; 
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    width: 100%; margin: 0; padding: 0;
+    overflow-x: hidden; 
+    color: #000; background-color: #fff;
+}
+
+a { text-decoration: none; color: inherit; }
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    height: 100dvh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fff;
+    z-index: 10; 
+    border-bottom: 1px solid #000;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 40px;
+}
+
+/* Video Fluttuanti */
+.floating-icon {
+    position: absolute;
+    width: 250px; height: auto;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+}
+.icon-forbici { top: 15%; left: 10%; transform: rotate(-15deg); }
+.icon-evidenziatore { top: 10%; right: 15%; transform: scale(1.2) rotate(10deg); }
+.icon-bisturi { bottom: 10%; right: 25%; transform: scale(0.6) rotate(-20deg); }
+
+.scroll-prompt {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%); text-align: center;
+    cursor: pointer; z-index: 20;
+}
+
+.arrow-down {
+    width: 20px; height: 20px;
+    border-right: 2px solid #000; border-bottom: 2px solid #000;
+    transform: rotate(45deg); margin: 10px auto;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);}
+    40% {transform: translateY(-10px) rotate(45deg);}
+    60% {transform: translateY(-5px) rotate(45deg);}
+}
+
+#main-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    height: var(--header-height);
+    padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000;
+    /* Effetto Vetro */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
+}
+
+/* LOGO */
+.logo { 
+    font-family: "articulat-cf", sans-serif; 
+    font-size: 24px; 
+    font-weight: 700; /* Bold */
+    letter-spacing: -0.5px; 
+    z-index: 1001; 
+    text-decoration: none; 
+    color: #000; 
+}
+
+/* NAVIGAZIONE DESKTOP */
+.desktop-only-nav ul { 
+    list-style: none; display: flex; margin: 0; padding: 0; align-items: center; 
+}
+.desktop-only-nav ul li {margin: 0 25px; }
+
+/* LINK MENU DESKTOP -> Articulat CF BOLD */
+.desktop-only-nav ul li a { 
+    font-family: "articulat-cf", sans-serif; 
+    font-weight: 700; /* BOLD */
+    font-size: 14px; 
+    position: relative; 
+    text-decoration: none; 
+    color: #000; 
+}
+
+/* Linea hover */
+.desktop-only-nav ul li a::after { 
+    content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; 
+    background-color: #000; transition: width 0.3s; 
+}
+.desktop-only-nav ul li a:hover::after { width: 100%; }
+
+/* HAMBURGER E MOBILE MENU */
+.hamburger-icon { 
+    display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 2000; 
+}
+.hamburger-icon span { 
+    width: 30px; height: 2px; background: #000; transition: all 0.3s ease; 
+}
+
+#mobile-overlay-menu {
+    display: flex; position: fixed; top: 0; right: -100%;
+    width: 100%; height: 100vh; background: #fff; z-index: 1999;
+    flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s ease;
+}
+#mobile-overlay-menu.open { right: 0; }
+
+/* TASTO CHIUDI -> Articulat CF BOLD */
+.close-menu-btn { 
+    font-family: "articulat-cf", sans-serif !important; 
+    font-weight: 700 !important; /* BOLD */
+    position: absolute; top: 30px; right: 30px; 
+    font-size: 30px; cursor: pointer; 
+    color: #000;
+}
+
+.mobile-links { 
+    list-style: none; padding: 0; text-align: center; display: flex; flex-direction: column; gap: 40px; 
+}
+
+/* LINK MENU MOBILE -> Articulat CF BOLD */
+.mobile-links a { 
+    font-family: "articulat-cf", sans-serif !important; 
+    font-weight: 700 !important; /* BOLD */
+    font-size: 2.5rem; 
+    color: #000; 
+    text-decoration: none; 
+}
+
+
+.scrolling-text-container {
+    overflow: hidden; white-space: nowrap;
+    font-size: 1.5 rem; font-weight: bold; line-height: 1;
+    padding: 15px 0; border-bottom: 1px solid #000;
+    margin: 0px 0;
+}
+.scrolling-text { display: inline-block; animation: scroll-text-left 40s linear infinite; }
+.scrolling-text span { display: inline-block; padding-right: 5px; }
+@keyframes scroll-text-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-30%); }
+}
+
+/* CAROSELLI */
+.product-carousel {
+    width: 100%; overflow: hidden; position: relative; padding: 20px 0; 
+}
+.carousel-track { display: flex; width: max-content; flex-wrap: nowrap; }
+.product-item {
+    position: relative; display: inline-block;
+    width: 150px; height: 150px; padding: 10px;
+    flex-shrink: 0; margin: 0 15px; transition: transform 0.3s ease;
+}
+.image-area {
+    width: 100%; height: 100%; display: flex;
+    justify-content: center; align-items: center;
+}
+.product-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.product-overlay {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    font-weight: bold; font-size: 14px;
+    background: rgba(255,255,255,0.9);
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.product-item:hover .product-overlay { opacity: 1; }
+
+
+.accordion-container {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    
+    background-color: #fff;
+}
+
+.intro-text { flex: 0.8; padding: 0 40px; font-size: 1.1rem; line-height: 1.6; }
+.accordion { 
+    flex: 2; 
+    display: flex; 
+    flex-direction: column; 
+    padding-right: 0;
+   
+    border-top: none; 
+}
+
+.accordion-item {
+    display: flex; 
+    border-bottom: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    
+    margin-top: -1px; 
+    margin-bottom: -1px; 
+    
+    min-height: 80px; 
+    transition: all 0.4s ease;
+    overflow: hidden; 
+    cursor: pointer;
+    padding: 0 !important; 
+    background-color: #fff;
+    position: relative; 
+}
+
+
+.accordion-item:first-child {
+    border-top: 1px solid var(--border-color);   
+    
+}
+
+.number {
+    width: 80px; 
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    font-size: 1.8rem;
+    font-weight: bold; 
+    border-right: 1px solid var(--border-color);
+    transition: background 0.3s, color 0.3s; 
+    flex-shrink: 0;
+    /* La colonna numero si allungherà automaticamente grazie a flexbox */
+}
+
+.content { 
+    flex: 1; 
+    /* Lo spazio interno lo gestiamo qui */
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+}
+
+.content h3 { margin: 0; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+.details { max-height: 0; opacity: 0; transition: all 0.5s ease; overflow: hidden; }
+.details p { font-size: 1rem; margin-top: 15px; line-height: 1.4; }
+
+/* HOVER DESKTOP */
+.accordion-item:hover { min-height: 180px; }
+.accordion-item:hover .details { max-height: 200px; opacity: 1; }
+
+/* Colori Numero */
+.accordion-item.orange:hover .number { background-color: var(--orange); color: white; }
+.accordion-item.blue:hover .number   { background-color: var(--blue); color: white; }
+.accordion-item.green:hover .number  { background-color: var(--green); color: white; }
+.accordion-item.red:hover .number    { background-color: var(--red); color: white; }
+.accordion-item.purple:hover .number { background-color: var(--purple); color: white; }
+
+/* --- MOBILE FIX --- */
+@media (max-width: 768px) {
+    .accordion-item.active {
+        min-height: auto;
+        padding-bottom: 0; 
+        background: #fafafa;
+    }
+
+      
+    .accordion-container {
+    border-bottom: none !important; /* Elimina la linea grigia extra */
+}
+    
+    /* Se vuoi spazio extra sotto al testo quando è aperto, aggiungilo qui */
+    .accordion-item.active .content {
+        padding-bottom: 40px; 
+    }
+
+    .accordion-item.active .details { opacity: 1; max-height: 500px; }
+    
+    /* Colori attivi su mobile */
+    .accordion-item.orange.active .number { background-color: var(--orange); color: white; }
+    .accordion-item.blue.active .number   { background-color: var(--blue); color: white; }
+    .accordion-item.green.active .number  { background-color: var(--green); color: white; }
+    .accordion-item.red.active .number    { background-color: var(--red); color: white; }
+    .accordion-item.purple.active .number { background-color: var(--purple); color: white; }
+}
+
+.quiz-section {
+    min-height: 80vh;       
+    min-height: 80dvh;     
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #fff;
+    scroll-snap-align: start; 
+}
+
+.quiz-card { text-align: center; }
+
+.quiz-btn { 
+    font-weight: 700 !important;
+    display: block; width: 100%; padding: 20px; margin: 10px 0;
+    background: #fff; border: 1px solid #000;
+    text-align: left; font-size: 1.1rem; cursor: pointer; transition: all 0.2s;
+}
+
+.quiz-btn:hover, .main-btn:hover { background: #000; color: #fff; }
+
+.main-btn {
+    background-color: #000; color: #fff; font-weight: bold;
+    text-align: center; margin-top: 30px; letter-spacing: 2px;
+}
+
+#result-card {
+    display: none; /* JS */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#result-card h1 {
+    font-size: 2rem;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#object-motto {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/*!!! */
+.result-img {
+    display: block;
+    width: 100%;
+    max-width: 150px; 
+    height: auto;
+    margin: 30px auto;
+    object-fit: contain;
+}
+
+/* MOBILE (Max-Width 768px) */
+@media (max-width: 768px) {
+    /* 1. HEADER E NAVIGAZIONE */
+    #main-header { padding: 0 20px; height: 60px; }
+    .desktop-only-nav { display: none !important; }
+    .hamburger-icon { display: flex; } 
+
+    /* 2. HERO SECTION */
+    .hero-content h1 { font-size: 2.2rem; margin-bottom: 20px; }
+    .floating-icon { display: none; } 
+    
+    /* 3. TESTO SCORREVOLE */
+    .scrolling-text-container { font-size: 1.2rem; }
+
+    /* 4. CAROSELLI */
+    .product-item { width: 110px; height: 110px; margin: 0 10px; }
+    .product-overlay { font-size: 12px; }
+
+    /* 5. ACCORDION VERTICALE */
+    .accordion-container {border-bottom: 1px solid var(--border-color) !important; }
+    .intro-text { padding: 0 20px 30px 20px; font-size: 1rem; }
+    .accordion { padding-right: 0; width: 100%; }
+
+    .accordion-item:hover { min-height: 80px; }
+    .accordion-item:hover .details { max-height: 0; opacity: 0; }
+
+    .accordion-item.active { min-height: auto; padding-bottom: 20px; }
+    .accordion-item.active .details { max-height: 500px; opacity: 1; margin-top: 10px; }
+
+    .orange.active .number { background-color: var(--orange); color: white; }
+    .blue.active .number   { background-color: var(--blue); color: white; }
+    .green.active .number  { background-color: var(--green); color: white; }
+    .red.active .number    { background-color: var(--red); color: white; }
+    .purple.active .number { background-color: var(--purple); color: white; }
+
+     /* 6. QUIZ */
+    .quiz-section { padding: 40px 20px; margin-top: 20px; border-top: none; }
+    #question-text { font-size: 1.4rem; }
+    /* --- STILE RISULTATO QUIZ (VERSIONE AGGIORNATA) --- */
+
+    /* Rimpicciolisce ulteriormente l'immagine solo su telefono */
+    .result-img {
+        max-width: 150px; 
+        margin: 20px auto; 
+    }
+}
+
+.result-link-wrapper {
+    text-decoration: none; /* Toglie la sottolineatura */
+    color: inherit;        /* Mantiene il colore nero del testo */
+    display: block;        /* Rende cliccabile tutta l'area */
+    cursor: pointer;       /* Mostra la manina al mouse */
+    transition: transform 0.2s ease;
+}
+.result-link-wrapper:hover {
+    transform: scale(1.02); /* Leggero zoom per far capire che è cliccabile */
+    opacity: 0.8;
+}
+
+.site-footer {
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #000;
+    padding: 60px 60px;
+    margin-top: 80px;
+    font-family: "articulat-cf", sans-serif !important;
+    color: #000;
+}
+
+.footer-top {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.footer-logo {
+    font-size: 3.8rem;
+    font-weight: 800 !important;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -2px;
+}
+
+.footer-tagline {
+    font-size: 1.6rem;
+    font-weight: 700 !important;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+/* --- Griglia informazioni --- */
+
+.footer-info-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 100px;               /* 👈 PIÙ SPAZIO TRA LE COLONNE */
+    align-items: start;
+}
+
+/* Colonna base */
+
+.info-col {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* --- Testo descrizione (sinistra) --- */
+
+.footer-subtext {
+    font-size: 0.95rem;
+    font-weight: 500 !important;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Colonna centrale (CONTATTI) — CENTRATA --- */
+
+.contact-col {
+    align-items: center;
+    text-align: left;
+}
+
+.ig-link {
+    font-weight: 700 !important;
+    text-decoration: underline;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+
+.footer-cartiglio {
+    max-width: 300px; /* Alza questo valore finché non ti soddisfa */
+    width: 100%;      /* Forza l'immagine a prendersi lo spazio del max-width */
+    height: auto;
+    margin-top: 15px; /* Opzionale: aggiunge un po' di respiro dal testo sopra */
+}
+
+/* --- Colonna istituzione (DESTRA) --- */
+/* Blocco sul lato destro ma testo a sinistra */
+
+.footer-info-grid .info-col:last-child {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.institution-text {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    font-weight: 500 !important;
+    margin: 0;
+}
+
+.institution-text strong {
+    font-weight: 700 !important;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 768px) {
+
+    .site-footer {
+        padding: 50px 30px;
+    }
+
+    .footer-info-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .contact-col {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .footer-info-grid .info-col:last-child {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .footer-logo {
+        font-size: 2.8rem;
+    }
+}

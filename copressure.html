@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoOrdinati - CoPressure</title>
+    <link rel="stylesheet" href="css/cocuttin.css">
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+
+    <style>
+        /* ========================================= */
+        /* === STILI GENERALI E VARIABILI        === */
+        /* ========================================= */
+
+        :root {
+            --line-color: #000000;
+            --text-color: #1a1a1a;
+            --bg-color: #ffffff;
+            --primary: #0465a6; /* BLU per CoPressure */
+            --header-height: 70px;
+        }
+
+        /* --- ANIMAZIONI --- */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes revealLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        * { box-sizing: border-box; }
+
+        body, h1, h2, h3, h4, p, span, div, a, button {
+            font-family: "articulat-cf", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: var(--text-color);
+            border-radius: 0 !important;
+            font-weight: 500; 
+        }
+
+        h1 { font-weight: 900; } 
+        h2, .logo, .add-to-cart-btn, .cta-pre-text, .dropdown-header, .num-box { font-weight: 800; } 
+        .desktop-only-nav ul li a, .mobile-links a { font-weight: 700; } 
+        p, .dropdown-content, .quote-author { font-weight: 500; } 
+
+        html, body {
+            width: 100%; margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            overflow: hidden; /* Blocca scroll pagina intera su desktop */
+        }
+
+        a { text-decoration: none; color: inherit; transition: opacity 0.3s ease; }
+
+        /* HEADER */
+        #main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-height);
+            padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--line-color); 
+        }
+
+        .logo { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; z-index: 1001; }
+
+        /* NAVIGAZIONE */
+        .desktop-only-nav ul { list-style: none; display: flex; margin: 0; padding: 0; align-items: center; }
+        .desktop-only-nav ul li { margin: 0 25px; }
+        .desktop-only-nav ul li a { font-size: 14px;  font-weight: 700; position: relative; }
+        .desktop-only-nav ul li a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background-color: #000; transition: width 0.3s; }
+        .desktop-only-nav ul li a:hover::after { width: 100%; }
+
+        /* HAMBURGER & MOBILE MENU */
+        .hamburger-icon { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 2000; }
+        .hamburger-icon span { width: 30px; height: 2px; background: #000; transition: all 0.3s ease; }
+        
+        #mobile-overlay-menu {
+            display: flex; position: fixed; top: 0; right: -100%;
+            width: 100%; height: 100vh; background: #fff; z-index: 1999;
+            flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s ease;
+        }
+        #mobile-overlay-menu.open { right: 0; }
+        .close-menu-btn { position: absolute; top: 30px; right: 30px; font-size: 30px; cursor: pointer; font-weight: 700; }
+        .mobile-links { list-style: none; padding: 0; text-align: center; display: flex; flex-direction: column; gap: 40px; }
+        .mobile-links a { font-size: 2.5rem; font-weight: 700; }
+
+        /* LAYOUT GRID (DESKTOP) */
+        .product-page {
+            display: grid;
+            grid-template-columns: 100px 300px 1fr;
+            height: calc(100vh - 70px);
+            margin-top: 70px;
+        }
+
+        /* 1. COLONNA NUMERI */
+        .sidebar-numbers {
+            border-right: 1px solid var(--line-color);
+            display: flex; flex-direction: column;
+            height: 100%; background: #fff; order: 1;
+        }
+        .num-box {
+            flex: 0 0 100px; display: flex; align-items: flex-end; padding: 0 0 10px 15px;
+            font-size: 2.5em; font-weight: 700; border-bottom: 1px solid var(--line-color);
+            transition: all 0.3s ease; opacity: 0; animation: revealLeft 0.8s ease forwards;
+        }
+        .sidebar-numbers a:nth-child(1) { animation-delay: 0.1s; } 
+        .sidebar-numbers a:nth-child(2) { animation-delay: 0.2s; } /* Gruppo 2: Costruire un dialogo */
+        .sidebar-numbers a:nth-child(5) { animation-delay: 0.5s; }
+        
+        .num-box.active { flex: 1; background-color: var(--primary); color: #fff; min-height: 200px; }
+        .num-box:not(.active):hover { background: #f4f4f4; }
+
+        /* 2. COLONNA INFO (Prezzo, CTA) */
+        .info-column {
+            border-right: 1px solid var(--line-color);
+            display: flex; flex-direction: column;
+            height: 100%; order: 2;
+            opacity: 0; animation: revealUp 1s ease 0.3s forwards;
+        }
+        .description-short {
+            flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 30px; border-bottom: 1px solid var(--line-color);
+        }
+        .description-short h2 { font-size: 1.5rem; font-weight: 800; line-height: 1; margin-bottom: 15px; text-transform: uppercase; }
+        .description-short p { font-size: 0.95rem; line-height: 1.4; margin: 0; }
+
+        .cta-section {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            padding-top: 40px; background: #fff;
+        }
+        .hours-badge { font-size: 4rem; color: var(--primary); font-weight: 900; line-height: 1; }
+        .hours-label { color: var(--primary); font-weight: 700; font-size: 0.9rem; margin-top: 5px; margin-bottom: 20px; }
+        .add-to-cart-btn {
+            background: transparent; border: 1px solid #000; padding: 15px 0;
+            width: 80%; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;
+        }
+        .add-to-cart-btn:hover { background: #000; color: #fff; }
+
+        /* 3. COLONNA PRODOTTO (Principale) */
+        .product-main {
+            padding: 40px; overflow-y: auto; height: 100%; position: relative;
+            scrollbar-width: thin; scrollbar-color: var(--primary) transparent;
+            order: 3;
+        }
+
+        .product-switcher { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
+        .switcher-icon { width: 45px; height: 45px; opacity: 0.3; transition: opacity 0.3s; }
+        .switcher-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .switcher-icon.active { opacity: 1; }
+        .switcher-icon:hover { opacity: 0.7; }
+
+        /* --- HERO STYLE --- */
+        .hero-product-container {
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+            gap: 10px;
+            margin-bottom: 60px;
+        }
+
+        /* POSIZIONAMENTO IMMAGINE FLUTTUANTE (Sartoriale per CoPressure) */
+        .absolute-hero-image-container {
+            position: absolute;
+            top: 80px; /* Posizione media */
+            right: 60px; /* Spostato leggermente per mostrare il quadrante */
+            width: 42%; /* Dimensione per evidenziare i dettagli */
+            height: auto;
+            z-index: 1; 
+            pointer-events: none; 
+        }
+
+        .hero-image {
+            width: 100%;
+            transform: rotate(-10deg); /* Leggera inclinazione */
+            display: block;
+        }
+
+        .main-title {
+            font-size: 7rem; font-weight: 900; line-height: 0.8; letter-spacing: -3px; margin: 0 0 20px 0;
+            opacity: 0; animation: revealUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+            width: 100%;
+            position: relative; z-index: 10;
+        }
+
+        /* Split Layout */
+        .split-layout-wrapper {
+            display: flex;
+            width: 100%;
+            align-items: flex-start; 
+            justify-content: space-between;
+        }
+
+        .details-side {
+            width: 40%; 
+            padding-top: 20px;
+            opacity: 0; animation: revealUp 1s ease 0.8s forwards; 
+        }
+
+        /* DROPDOWN MENU */
+        .details-dropdown-menu { width: 100%; }
+        .dropdown-item { cursor: pointer; border-bottom: 1px solid var(--line-color); padding: 12px 0; }
+        .dropdown-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 0.9rem;  }
+        .arrow-icon { font-size: 0.7rem; transition: transform 0.3s; }
+        .dropdown-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; font-size: 0.85rem; line-height: 1.4; }
+        .dropdown-item.open .dropdown-content { max-height: 200px; padding-top: 10px; }
+        .dropdown-item.open .arrow-icon { transform: rotate(180deg); }
+        
+        .necessity-meter { display: flex; gap: 5px; padding: 5px 0; }
+        .necessity-dot { width: 12px; height: 12px; background: #eee; border: 1px solid #ddd; border-radius: 50% !important; }
+        .necessity-dot.active { background: var(--primary); border-color: var(--primary); }
+
+        .section-divider { height: 70px; }
+        
+        /* PHILOSOPHICAL SECTION */
+        .philo-content { display: flex; align-items: center; gap: 40px; }
+        .philo-img { width: 40%; padding-top: 60px; object-fit: contain; }
+        .philo-text h2 { font-size: 2.2rem; font-weight: 800; line-height: 1; margin: 0 0 30px 40px; }
+        .value-list { margin-left: 40px; width: 100%; }
+        .value-item { padding: 15px 0; border-bottom: 1px solid var(--line-color); font-size: 1.1rem; font-weight: 600; text-transform: uppercase; position: relative; }
+        
+        /* QUOTE SECTION */
+        .quote-section { margin-top: 70px; position: relative; padding-bottom: 150px; }
+        .main-quote { font-size: 2.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin: 0; max-width: 800px; position: relative; z-index: 2; }
+        .quote-author { margin-top: 20px; font-style: italic; color: #666; }
+        .quote-bg-img { position: absolute; bottom: -50px; right: -50px; width: 400px; opacity: 0.8; z-index: 1; pointer-events: none; }
+
+        @media (max-width: 768px) {
+            body, html { overflow: auto; height: auto; }
+            #main-header { padding: 0 20px; height: 60px; }
+            .desktop-only-nav { display: none !important; }
+            .hamburger-icon { display: flex; }
+
+            .product-page { display: flex; flex-direction: column; height: auto; margin-top: 60px; }
+
+            .sidebar-numbers {
+                flex-direction: row; width: 100%; height: auto; overflow-x: auto;
+                border-right: none; border-bottom: 1px solid var(--line-color);
+                position: sticky; top: 60px; z-index: 900;
+            }
+            .num-box { flex: 0 0 70px; min-height: 50px; font-size: 1.5rem; border-bottom: none; border-right: 1px solid var(--line-color); padding: 0; justify-content: center; align-items: center; }
+            .num-box.active { min-height: 50px; }
+            
+            /* --- MOBILE HERO FIX --- */
+            .split-layout-wrapper { flex-direction: column; } 
+            
+            .absolute-hero-image-container {
+                position: relative; 
+                top: auto; right: auto; 
+                width: 75%; /* Dimensione per mobile */
+                margin: -20px auto 30px auto; 
+                pointer-events: auto;
+            }
+            .hero-image { transform: rotate(-10deg); }
+
+            .details-side { width: 100%; margin-top: 20px; }
+            
+            .main-title { font-size: 4rem; margin-top: 10px; text-align: left; }
+
+            .product-main { order: 2; padding: 20px; overflow: visible; height: auto; width: 100%; }
+            
+            .philo-content { flex-direction: column; gap: 20px; }
+            .philo-img { width: 50%; transform: rotate(0deg); }
+            .philo-text h2 { margin-left: 0; font-size: 1.8rem; }
+            .value-list { margin-left: 0; }
+            
+            .info-column { order: 3; width: 100%; height: auto; border-right: none; border-top: 1px solid var(--line-color); }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+        <nav class="desktop-only-nav">
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="mobile-overlay-menu">
+            <div class="close-menu-btn" onclick="toggleMobileMenu()"></div>
+            <ul class="mobile-links">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="product-page">
+        <aside class="sidebar-numbers">
+            <a href="cocutting.html" class="num-box">01 /</a>
+            <a href="cohearing.html" class="num-box active">02 /</a>
+            <a href="coeating.html" class="num-box">03 /</a>
+            <a href="coscotch.html" class="num-box">04 /</a>
+            <a href="comarking.html" class="num-box">05 /</a>
+        </aside>
+
+        <section class="product-main">
+            
+            <nav class="product-switcher">
+                <a href="cohearing.html" class="switcher-icon"><img src="assets2/stetoscopio_sag_grigio.png" alt="Stetoscopio"></a>
+                <a href="colistening.html" class="switcher-icon"><img src="assets2/sag_cuffiette_grigia.png" alt="Cuffie"></a>
+                <a href="cospeaking.html" class="switcher-icon"><img src="assets2/Microfono_sag_grigia.png" alt="Microfono"></a>
+                <a href="copressure.html" class="switcher-icon active"><img src="assets2/pressione copia.png" alt="Pressione"></a>
+            </nav>
+
+            <div class="absolute-hero-image-container">
+                <img src="assets2/oggetti/pressf.png" class="hero-image" alt="CoPressure Sfigmomanometro">
+            </div>
+
+            <div class="hero-product-container">
+                <h1 class="main-title">CoPressure®</h1>
+                
+                <div class="split-layout-wrapper">
+                    
+                    <div class="details-side">
+                        <div class="details-dropdown-menu">
+                            <div class="dropdown-item">
+                                <div class="dropdown-header">descrizione <span class="arrow-icon">▼</span></div>
+                                <div class="dropdown-content">
+                                    <p>Sfigmomanometro doppio per misurare insieme, che trasforma la misurazione in un momento di coordinazione e attenzione reciproca.</p>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-header">livello di necessità <span class="arrow-icon">▼</span></div>
+                                <div class="dropdown-content">
+                                    <div class="necessity-meter">
+                                        <span class="necessity-dot active"></span><span class="necessity-dot active"></span>
+                                        <span class="necessity-dot active"></span><span class="necessity-dot active"></span>
+                                        <span class="necessity-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-header">materiali <span class="arrow-icon">▼</span></div>
+                                <div class="dropdown-content"><p>Nylon rinforzato, valvola di sfiato condivisa, pressione di gruppo.</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="philosophical-section">
+                <div class="philo-content">
+                  <img src="assets2/viste/copressure.png" class="philo-img" alt="CoPressure Vista">
+                    <div class="philo-text">
+                        <h2>Per chi vuole imparare <br>a gestire lo stress.</h2>
+                        <div class="value-list">
+                            <div class="value-item">Ascolto attivo</div>
+                            <div class="value-item">Comunicazione efficace</div>
+                            <div class="value-item">Intelligenza relazionale</div>
+                            <div class="value-item">Equità dialogica</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-section">
+                <blockquote class="main-quote">
+                    «Non la finanza. Non la strategia. Non la tecnologia. È il lavoro di squadra che rimane l'ultimo vantaggio competitivo, sia perché è così potente sia perché è così raro.»
+                </blockquote>
+                <p class="quote-author">— Patrick Lencioni.</p>
+                <img src="assets2/oggetti/pressf.png" class="quote-bg-img" alt="Background">
+            </div>
+        </section>
+
+        <section class="info-column">
+            <div class="description-short">
+                <h2>COSTRUIRE<br>UN DIALOGO</h2>
+                <p>Strumenti che invitano a sintonizzarsi sulla stessa frequenza, superando le gerarchie per creare uno spazio di confronto autentico.</p>
+            </div>
+            
+            <div class="cta-section">
+                <p class="cta-pre-text">Se sei pront* a fare</p>
+                <div class="hours-badge">20</div>
+                <p class="hours-label">ore di supporto</p>
+                <span class="prezzo-valore" style="display:none">20</span>
+                <button class="add-to-cart-btn">AGGIUNGI AL CARRELLO</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById("mobile-overlay-menu").classList.toggle("open");
+            document.querySelector(".hamburger-icon").classList.toggle("active");
+        }
+
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        const addToCartBtn = document.querySelector('.add-to-cart-btn');
+        if (addToCartBtn) {
+            addToCartBtn.addEventListener('click', function() {
+                const nomeProdotto = document.querySelector('h1')?.innerText || "Prodotto";
+                const prezzoTesto = document.querySelector('.prezzo-valore')?.innerText || "20"; 
+                
+                const testoOriginale = this.innerText;
+                this.innerText = "AGGIUNTO!";
+                this.style.background = "#000";
+                this.style.color = "#fff";
+
+                const nuovoProdotto = {
+                    id: nomeProdotto.toLowerCase().replace(/\s+/g, '-'), 
+                    nome: nomeProdotto,
+                    categoria: "COSTRUIRE UN DIALOGO",
+                    prezzo: parseInt(prezzoTesto) || 20, 
+                    immagine: 'assets2/oggetti/pressf.png', 
+                    quantita: 1 
+                };
+
+                let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+                const indexEsistente = carrello.findIndex(item => item.id === nuovoProdotto.id);
+                
+                if (indexEsistente !== -1) { 
+                    carrello[indexEsistente].quantita += 1; 
+                } else { 
+                    carrello.push(nuovoProdotto); 
+                }
+                
+                localStorage.setItem('carrello', JSON.stringify(carrello));
+                
+                setTimeout(() => { 
+                    this.innerText = testoOriginale; 
+                    this.style.background = "transparent";
+                    this.style.color = "#000";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

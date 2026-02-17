@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinati - Carrello</title>
+    <link rel="stylesheet" href="css/carrello.css"> 
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+</head>
+<body>
+
+<header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+        <nav class="desktop-only-nav">
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </div>
+        <div id="mobile-overlay-menu">
+            <div class="close-menu-btn" onclick="toggleMobileMenu()"></div>
+            <ul class="mobile-links">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </div>
+    </header>
+
+<main class="cart-container">
+    <section class="cart-header-section">
+        <h1 class="cart-title">Il tuo Carrello</h1>
+    </section>
+
+    <div id="cart-items-container" class="cart-items-list">
+        </div>
+
+    <section class="cart-footer-grid">
+        
+        <aside class="cart-sidebar-link">
+            <a href="index.html" class="continue-shopping">
+                <span class="arrow-left"></span> Continua la riflessione
+            </a>
+        </aside>
+
+        <article class="cart-total-area">
+            <div class="total-row">
+                <span class="total-label">Totale Stimato</span>
+                <span class="total-amount" id="cart-total-value">0 ore</span>
+            </div>
+            
+            <div class="checkout-footer">
+                <a href="cug.html" class="checkout-link">
+                    <button id="checkout-btn" class="main-btn">
+                        Procedi al cambiamento
+                    </button>
+                </a>
+            </div>
+        </article>
+    </section>
+</main>
+
+
+<script src="js/carrello.js"></script>
+</body>
+</html>

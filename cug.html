@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUG - CoOrdinati®</title>
+    
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+    
+    <style>
+        :root {
+            --text-color: #000;
+            --bg-color: #fff;
+            --border-color: #000;
+            --header-height: 70px;
+        }
+
+        /* --- GLOBAL FONT SETTINGS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "articulat-cf", sans-serif !important;
+        }
+
+        body {
+            /* Impedisce lo scroll orizzontale causato dalle linee che "escono" */
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+        }
+
+        body, p, span, div, a, li, button {
+            font-weight: 500 !important;
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3, strong, b {
+            font-weight: 800 !important;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        #main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-height);
+            padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color); 
+        }
+
+        .logo { 
+            font-size: 24px; 
+            font-weight: 800 !important;
+            letter-spacing: -0.5px; 
+            text-decoration: none; 
+            color: #000; 
+        }
+
+        /* --- PAGE CONTENT --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 70px; 
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            max-width: 650px;
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        /* Navigation Links (Hints) */
+        .nav-hints {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px 5%;
+            font-size: 0.9rem;
+            font-weight: 700 !important;
+        }
+
+        .nav-hints a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-hints > a:first-child, 
+        .nav-hints > div:last-child {
+            flex: 1; 
+        }
+        
+        .scroll-prompt-container {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            flex: 0 0 auto; 
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .arrow-down {
+            width: 20px; height: 20px;
+            border-right: 2px solid #000; border-bottom: 2px solid #000;
+            transform: rotate(45deg); margin-top: 10px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) rotate(45deg);}
+            40% {transform: translateY(-10px) rotate(45deg);}
+            60% {transform: translateY(-5px) rotate(45deg);}
+        }
+
+        /* --- SECTION: C.U.G. CON LINEE BORDO A BORDO --- */
+        .section-cug {
+            padding: 80px 5% 10px 5%;
+            position: relative; /* Necessario per posizionare la linea */
+        }
+
+        /* Linea sopra la sezione CUG */
+        .section-cug::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .section-cug h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 30px;
+        }
+
+        .quote {
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+            line-height: 1.3;
+            max-width: 1100px;
+            margin-bottom: 20px;
+        }
+
+        .source {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 60px;
+        }
+
+        /* Grid Table CON LINEE BORDO A BORDO */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        /* Linea sopra e sotto la griglia */
+        .info-grid::before, .info-grid::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+        .info-grid::before { top: 0; }
+        .info-grid::after { bottom: 0; }
+
+        .links-col {
+    padding: 40px 40px 40px 0;
+    border-right: 1px solid var(--border-color); /* <--- QUESTA FA TORNARE LA LINEA VERTICALE SUL PC */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+        .links-col::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .links-col a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+            transition: color 0.3s;
+        }
+
+        .text-col {
+            padding: 40px 0 40px 40px;
+            font-size: 1.4rem;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 5%;
+            text-align: left;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            max-width: 900px;
+            line-height: 1.1;
+        }
+
+        /* --- FOOTER CON LINEA BORDO A BORDO --- */
+        .site-footer {
+            width: 100%;
+            background-color: #fff;
+            position: relative;
+            padding: 60px 60px;
+            margin-top: 30px;
+        }
+
+        .site-footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background-color: #000;
+        }
+
+        .footer-top { margin-bottom: 30px; }
+        .footer-logo { font-size: 3.8rem; letter-spacing: -2px; line-height: 1; }
+        .footer-tagline { font-size: 1.6rem; letter-spacing: -0.5px; }
+
+        .footer-info-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .footer-cartiglio { max-width: 300px; width: 100%; height: auto; margin-top: 15px; }
+        .ig-link { font-weight: 700 !important; text-decoration: underline; font-size: 1rem; margin-bottom: 20px; display: inline-block; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding-top: 170px; height: auto; padding-bottom: 60px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .links-col { border-right: none; padding: 40px 0; }
+            .text-col { padding: 40px 0; }
+            .nav-hints { flex-direction: column; gap: 30px; text-align: center; align-items: center; }
+            .footer-info-grid { grid-template-columns: 1fr; gap: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+    </header>
+
+    <section class="hero">
+        <h1>Benvenut* in CoOrdinati®!</h1>
+        <p>Il nostro obiettivo è ispirare un cambiamento quotidiano e duraturo, spingendo oltre ad un semplice acquisto. Unisciti a noi per costruire insieme abitudini che migliorano la vita.</p>
+    </section>
+
+    <div class="nav-hints">
+        <a href="index.html">← Torna alla Home</a>
+        <div class="scroll-prompt-container" onclick="scrollToContent(event)">
+            Scopri come agire
+            <div class="arrow-down"></div>
+        </div>
+        <div style="width: 100px; visibility: hidden;"></div> 
+    </div>
+
+    <main id="content" class="section-cug">
+        <h2>Sai che cos'è il C.U.G.?</h2>
+        <p class="quote">
+            «Il Comitato Unico di Garanzia promuove la cultura delle pari opportunità e il rispetto della dignità della persona nel contesto lavorativo, realizzando azioni finalizzate a combattere ogni forma di discriminazione, diretta e indiretta, relativa al genere, all'età, all'orientamento sessuale, all'origine etnica, alla disabilità, alla religione e alla lingua.»
+        </p>
+        <p class="source">Estratto dalla presentazione del CUG del Ministero della Difesa.</p>
+
+        <div class="info-grid">
+            <div class="links-col">
+                <a href="https://portalecug.gov.it/" target="_blank">https://portalecug.gov.it/</a>
+                <a href="https://cug.cultura.gov.it/" target="_blank">https://cug.cultura.gov.it/</a>
+                <a href="https://www.polimi.it/il-politecnico/governance/" target="_blank">https://www.polimi.it/il-politecnico/governance/</a>
+                <a href="https://www.interno.gov.it/it/ministero/comitati/comitato-unico-garanzia" target="_blank">https://www.interno.gov.it/it/ministero/comitati/comitato-unico-garanzia</a>
+            </div>
+            <div class="text-col">
+                <p>Gli organismi di parità sono invece soggetti istituzionali che operano a livello nazionale e territoriale per promuovere l’uguaglianza di genere, tutelare i diritti
+e contrastare le discriminazioni.</p>
+            </div>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <h2>Se hai bisogno di supporto, chiedi aiuto, insieme è possibile cambiare le cose!</h2>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <h2 class="footer-logo">CoOrdinati®</h2>
+            <h3 class="footer-tagline">Quando la collaborazione prende forma</h3>
+        </div>
+
+        <div class="footer-info-grid">
+            <div class="info-col">
+                <p>Campagna di comunicazione per promuovere il benessere<br>e la collaborazione nei luoghi di lavoro.</p>
+                <img src="assets/Cartiglio.png" alt="Cartiglio Rete CUG" class="footer-cartiglio">
+            </div>
+
+            <div class="info-col" style="text-align: left;">
+                <p>Per nuovi contenuti e riflessioni<br>quotidiane sulla collaborazione:</p>
+                <a href="https://www.instagram.com/coordinati.milano" target="_blank" class="ig-link">@coordinati.milano</a>
+            </div>
+
+            <div class="info-col">
+                <p><strong>Progetto accademico — Politecnico di Milano</strong><br>
+                <strong>Scuola del Design</strong><br>
+                Laboratorio di Sintesi Finale C2 · A.A. 2025/2026<br>
+                <strong>Pausa caffè</strong><br>
+                Design della comunicazione e benessere nei luoghi di lavoro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToContent(e) {
+            if(e) e.preventDefault();
+            const element = document.getElementById("content");
+            const headerOffset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+    </script>
+</body>
+</html>

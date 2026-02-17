@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About CoOrdinati®</title>
+    <link rel="stylesheet" href="https://use.typekit.net/eov5ban.css">
+    
+    <style>
+
+        :root {
+            --line-color: #000000;
+            --text-color: #1a1a1a;
+            --bg-color: #ffffff;
+            --header-height: 70px;
+        }
+
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; }
+
+        body, h1, h2, h3, h4, p, span, div, a, button {
+            /* FONT GLOBALE: Articulat CF */
+            font-family: "articulat-cf", sans-serif;
+            /* PESO MINIMO: 500 (Medium) */
+            font-weight: 500;
+            -webkit-font-smoothing: antialiased;
+            color: var(--text-color);
+            border-radius: 0 !important; /* Design squadrato */
+        }
+
+        html, body {
+            width: 100%; margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            /* Su desktop blocchiamo lo scroll globale perché scrolla il div interno */
+            overflow: hidden; 
+        }
+
+        #main-header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-height);
+            padding: 0 40px; /* Allineamento Logo */
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--line-color); 
+        }
+
+       
+        .logo { 
+            font-family: "articulat-cf", sans-serif !important; 
+            font-size: 24px; 
+            font-weight: 800 !important; /* Extra Bold */
+            letter-spacing: -0.5px; 
+            z-index: 1001; 
+            text-decoration: none; 
+            color: #000; 
+        }
+
+        .desktop-only-nav ul { list-style: none; display: flex; margin: 0; padding: 0; align-items: center; }
+        .desktop-only-nav ul li { margin: 0 25px; }
+        
+        /* LINK MENU DESKTOP -> Bold */
+        .desktop-only-nav ul li a { 
+            font-family: "articulat-cf", sans-serif; 
+            font-weight: 700; /* Bold */
+            font-size: 14px; 
+            position: relative; 
+            text-decoration: none; 
+            color: #000; 
+        }
+        
+        .desktop-only-nav ul li a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background-color: #000; transition: width 0.3s; }
+        .desktop-only-nav ul li a:hover::after { width: 100%; }
+
+        .hamburger-icon { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 2000; }
+        .hamburger-icon span { width: 30px; height: 2px; background: #000; transition: all 0.3s ease; }
+
+        #mobile-overlay-menu {
+            display: flex; 
+            position: fixed; 
+            top: 0; 
+            right: -100%;
+            width: 100%; 
+            height: 100vh; 
+            background: #fff; 
+            z-index: 1999;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            transition: right 0.5s ease;
+        }
+
+        #mobile-overlay-menu.open { 
+            right: 0; 
+        }
+
+        /* TASTO CHIUDI (X) - Bold */
+        .close-menu-btn { 
+            font-family: "articulat-cf", sans-serif !important; 
+            font-weight: 700 !important; /* BOLD */
+            position: absolute; 
+            top: 30px; 
+            right: 30px; 
+            font-size: 30px; 
+            cursor: pointer; 
+            color: #000;
+        }
+
+        .mobile-links { 
+            list-style: none; 
+            padding: 0; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 40px; 
+        }
+
+        /* LINK MENU MOBILE - Bold */
+        .mobile-links a { 
+            font-family: "articulat-cf", sans-serif !important; 
+            font-weight: 700 !important; /* BOLD */
+            font-size: 2.5rem; 
+            color: #000; 
+            text-decoration: none; 
+        }
+        
+
+    
+        .about-page-container {
+            display: grid;
+            grid-template-columns: 400px 1fr; /* Colonna Menu fissa | Colonna Contenuto fluida */
+            height: 100vh;
+            padding-top: 70px; /* Spazio Header */
+        }
+
+        /* --- COLONNA SINISTRA (MENU) --- */
+        .about-fixed-menu {
+            grid-column: 1;
+            background-color: #fff; 
+            border-right: 1px solid #000;
+            display: flex; flex-direction: column;
+            height: 100%;
+        }
+
+        .section-nav { border-bottom: 1px solid #000; }
+
+        .menu-item {
+            font-size: 1.2rem; padding: 20px 25px;
+            border-top: 1px solid #000; cursor: pointer;
+            font-weight: 700; /* Bold */
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+        .menu-item:first-child { border-top: none; }
+        .menu-item:hover { background: #f4f4f4; }
+        .menu-item.active { background: #000; color: #fff; }
+
+        .menu-description-area {
+            padding: 40px 30px;
+            font-size: 1.1rem; line-height: 1.5;
+            flex-grow: 1; 
+            font-weight: 500; /* Medium */
+        }
+        .hidden-desc { display: none; }
+        .active-desc { display: block; animation: fadeIn 0.5s ease; }
+
+        /* --- COLONNA DESTRA (CONTENUTO) --- */
+        .about-content-viewer {
+            grid-column: 2;
+            overflow-y: auto; /* Scrolla solo questa parte */
+            height: 100%;
+            background: #fff;
+        }
+
+        .content-section {
+            min-height: 100%;
+            padding-bottom: 50px;
+        }
+        .hidden-content { display: none; }
+        .active-content { display: block; animation: fadeIn 0.5s ease; }
+
+        /* --- STILI BLOCCHI E TESTO --- */
+        
+        .intro-block {
+            border-bottom: 1px solid #000; width: 100%;
+        }
+
+        /* MODIFICA: Classe specifica per togliere la linea sotto la frase grande */
+        .intro-block.no-border-bottom {
+            border-bottom: none !important;
+        }
+        
+        /* PADDING CORRETTO A 40px PER ALLINEAMENTO */
+        .block-padding-large { padding: 80px 40px; }
+        .block-padding-medium { padding: 50px 40px; }
+
+        /* --- TITOLO E SOTTOTITOLO VICINI --- */
+        .about-main-title {
+            font-size: 4rem; 
+            font-weight: 800; 
+            margin-bottom: 0px !important;
+            padding-bottom: 0px !important;
+            letter-spacing: -2px; 
+            line-height: 1;
+            margin-top: 0;
+        }
+        
+        .intro-subtitle {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 5px !important;
+            display: block;
+            line-height: 1.2;
+        }
+
+        /* --- TESTO CORRETTO (1.2rem) --- */
+        .text-xl { 
+            font-size: 1.2rem;
+            line-height: 1.5; 
+            max-width: 90%; 
+            font-weight: 500; 
+        }
+        
+        .text-lg { 
+            font-size: 1.2rem; 
+            line-height: 1.5; 
+            font-weight: 500; 
+        }
+
+        /* --- STILE FRASE GRANDE --- */
+        .frase-grande {
+            font-size: 2.8rem; /* Molto grande */
+            font-weight: 800;  /* Extra Bold */
+            line-height: 1.1;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        /* LAYOUT SPLIT (Testo a destra) */
+        .intro-split-row {
+            display: flex; border-bottom: 1px solid #000; width: 100%;
+        }
+        
+        /* Box Sinistro (Quote) - Padding 40px */
+        .split-left { 
+            width: 25%; 
+            border-right: 1px solid #000; 
+            padding: 50px 40px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: flex-start;
+        }
+
+        .quote-text {
+            font-size: 1.1rem; 
+            font-weight: 700; /* GRASSETTO */
+            margin: 0 0 10px 0;
+            line-height: 1.3;
+        }
+
+        .quote-author {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Box Destro - Padding 40px */
+        .split-right { 
+            width: 75%; 
+            padding: 50px 40px; 
+        }
+
+        /* CREDITS */
+        .credits-names { font-size: 1.1rem; margin-bottom: 20px; max-width: 600px; line-height: 1.4; font-weight: 700; }
+        .footer-cartiglio {
+    max-width: 300px; /* Alza questo valore finché non ti soddisfa */
+    width: 100%;      /* Forza l'immagine a prendersi lo spazio del max-width */
+    height: auto;
+    margin-top: 15px; /* Opzionale: aggiunge un po' di respiro dal testo sopra */
+}
+
+        /* SLIDER (Manifesti / Cartoline) */
+        .slider-container {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            height: calc(100vh - 70px); background-color: #fff;
+        }
+        .manifesti-wrapper {
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .manifesto-item, .cartolina-item { display: none; height: 100%; width: 100%; justify-content: center; align-items: center; }
+        .manifesto-item.active-slide, .cartolina-item.active-slide { display: flex; animation: fadeIn 0.5s ease; }
+        
+        .manifesto-item img, .cartolina-item img {
+            max-height: 80vh; max-width: 80%; object-fit: contain;
+            border: 1px solid #000; box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        .slider-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: none; border: none; cursor: pointer; padding: 20px; z-index: 10;
+        }
+        .slider-arrow svg { width: 40px; height: 40px; stroke: #000; transition: transform 0.2s; }
+        .slider-arrow:hover svg { transform: scale(1.2); }
+        .slider-arrow.prev { left: 30px; }
+        .slider-arrow.next { right: 30px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ================================================= */
+        /* === MOBILE (Max-Width 768px) === */
+        /* ================================================= */
+        @media (max-width: 768px) {
+            
+            /* 1. GLOBALE MOBILE */
+            html, body { overflow: auto; height: auto; } /* Sblocca lo scroll */
+            #main-header { padding: 0 20px; height: 60px; }
+            .desktop-only-nav { display: none !important; }
+            .hamburger-icon { display: flex; }
+
+            /* 2. STRUTTURA A BLOCCHI VERTICALI */
+            .about-page-container {
+                display: flex; flex-direction: column;
+                height: auto; padding-top: 60px;
+            }
+
+            /* 3. MENU STICKY ORIZZONTALE */
+            .about-fixed-menu {
+                width: 100%; height: auto;
+                position: -webkit-sticky; position: sticky;
+                top: 60px; /* Sotto l'header */
+                z-index: 900;
+                border-right: none; border-bottom: 1px solid #000;
+                flex-direction: row;
+            }
+
+            .section-nav {
+                display: flex; width: 100%; overflow-x: auto; /* Scroll orizzontale */
+                border-bottom: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .menu-item {
+                flex: 0 0 auto; /* Non schiacciare le voci */
+                border-top: none; border-right: 1px solid #000;
+                padding: 15px 20px; font-size: 1rem;
+                white-space: nowrap;
+            }
+            
+            /* Nascondiamo la descrizione del menu su mobile per spazio */
+            .menu-description-area { display: none; }
+
+            /* 4. CONTENUTO */
+            .about-content-viewer {
+                width: 100%; height: auto; overflow: visible;
+            }
+
+            .block-padding-large, .block-padding-medium { padding: 40px 20px; }
+            .about-main-title { font-size: 2.5rem; }
+            .intro-subtitle { font-size: 1.2rem; margin-top: 5px !important; }
+            .text-xl, .text-lg { font-size: 1.1rem; }
+            .frase-grande { font-size: 1.8rem; } /* Ridimensionato per mobile */
+
+            /* Split Row Mobile */
+            .intro-split-row { flex-direction: column; }
+            
+            /* Rendo visibile la colonna sinistra su mobile e le do un bordo */
+            .split-left { 
+                width: 100%; 
+                display: flex; 
+                border-right: none; 
+                border-bottom: 1px solid #000; 
+                padding: 30px 20px;
+            } 
+            
+            .split-right { width: 100%; padding: 30px 20px; border-top: none; }
+
+            /* Credits Mobile */
+            .black-label { font-size: 0.8rem; white-space: normal; }
+
+            /* Slider Mobile */
+            .slider-container { height: 60vh; padding: 20px 0; }
+            .manifesto-item img, .cartolina-item img {
+                max-height: 50vh; max-width: 85%;
+                box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+            }
+            .slider-arrow { padding: 10px; }
+            .slider-arrow.prev { left: 10px; }
+            .slider-arrow.next { right: 10px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="logo">CoOrdinati®</a>
+
+        <nav class="desktop-only-nav">
+            <ul>
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </nav>
+        
+        <div class="hamburger-icon" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div id="mobile-overlay-menu">
+            <div class="close-menu-btn" onclick="toggleMobileMenu()"></div>
+            <ul class="mobile-links">
+                <li><a href="index.html">Homepage</a></li>
+                <li><a href="catalogo.html">Catalogo</a></li>
+                <li><a href="about.html">Il Progetto</a></li>
+                <li><a href="carrello.html" class="cart-icon">Carrello</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="about-page-container">
+
+        <div class="about-fixed-menu">
+            <nav class="section-nav">
+                <div class="menu-item active" data-target="intro">Cos'è CoOrdinati®?</div>
+                <div class="menu-item" data-target="manifesti">Manifesti</div>
+                <div class="menu-item" data-target="cartoline">Cartoline</div>
+                <div class="menu-item" data-target="tassonomia">Tassonomia</div>
+            </nav>
+
+            <div class="menu-description-area">
+                <p id="desc-intro" class="active-desc">Una collezione di oggetti impossibili pensati per funzionare solo insieme. Strumenti familiari, che appartengono alla quotidianità lavorativa, vengono reinterpretati come archetipi della collaborazione.</p>
+                <p id="desc-manifesti" class="hidden-desc">I manifesti della campagna comunicativa “CoOrdinati®” sono affissi nelle principali aree comuni dei luoghi di lavoro. Pensati proprio per inserirsi nella quotidianità di lavoratori e studenti e proporre nuove prospettive.</p>
+                <p id="desc-cartoline" class="hidden-desc">Le cartoline della campagna comunicativa “CoOrdinati®” si possono trovare nelle aree comuni dei luoghi di lavoro. Pensati per inserirsi nella quotidianità di lavoratori e studenti  e proporre nuove prospettive.</p>
+                <p id="desc-tassonomia" class="hidden-desc"> All’interno del catalogo è presente un inserto poster che mostra la collezione nella sua interezza. Un cambiamento generale per favorire un ambiente di lavoro sano e collaborativo.</p>
+            </div>
+        </div>
+
+        <div class="about-content-viewer">
+            
+            <section id="intro-content" class="content-section active-content">
+                <div class="intro-block block-padding-large">
+                    <h1 class="about-main-title">CoOrdinati®?</h1>
+                    <p class="intro-subtitle">Oggetti impossibili per ricordarci ciò che è possibile</p>
+                    <p class="text-xl">Una collezione di strumenti provocativa per ribaltare le dinamiche lavorative.</p>
+                </div>
+
+                <div class="intro-split-row">
+                    <div class="split-left">
+                        <p class="quote-text">«Noi plasmiamo i nostri strumenti e poi i nostri strumenti plasmano noi.»</p>
+                        <p class="quote-author">– Marshall McLuhan</p>
+                    </div> 
+                    <div class="split-right">
+                        <p class="text-lg">Gli strumenti CoOrdinati® sono pensati per riprogettare la quotidianità lavorativa. Cambiare gli strumenti significa cambiare la prospettiva: non più solo compiti individuali, ma un ecosistema di azioni e idee condivise. Una collezione pensata per avviare un cambiamento di percezione e promuovere abitudini sane e collaborative.</p>
+                    </div>
+                </div>
+
+                <div class="intro-block block-padding-large no-border-bottom" style="padding-bottom: 10px;">
+                    <p class="frase-grande">Una collezione nata per contrastare l'individualismo e ridefinire le regole: passare dll'"Io" al "Noi", passando dalla una logica della competizione verso una prospettiva necessaria di condivisione e collaborazione.</p>
+                </div>
+
+                <div class="intro-block block-padding-medium" style="padding-top: 10px;">
+                    <p class="text-lg">Ogni strumento della collezione agisce come dispositivo critico, progettato per provocare una riflessione sulle mancanze di collaborazione nel sistema lavorativo odierno. Ogni oggetto diventa un simbolo dell'agire collettivo, un invito a riflettere sul proprio modo di lavorare e relazionarsi. L'obiettivo è rendere visibili le dinamiche invisibili che alimentano l'individualismo, denunciando l'assenza di collaborazione proprio rendendola l'unico modo possibile per funzionare.</p>
+                </div>
+
+                <div class="intro-block block-padding-medium credits-section">
+                    <p class="credits-names"><strong>Campagna di comunicazione per promuovere il benessere e la collaborazione nei luoghi di lavoro.</strong></p>
+                    <p>Progetto accademico — Politecnico di Milano, Scuola del Design</p>
+                    <img src="assets/Cartiglio.png" alt="Cartiglio Rete CUG" class="footer-cartiglio">
+                </div>
+            </section>
+            
+            <section id="manifesti-content" class="content-section hidden-content">
+                <div class="slider-container">
+                    <button class="slider-arrow prev" onclick="moveSlider(-1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <div class="manifesti-wrapper">
+                        <div class="manifesto-item active-slide"><img src="assets/manifesti5.jpg" alt="Manifesto 1"></div>
+                        <div class="manifesto-item"><img src="assets/manifesti2.jpg" alt="Manifesto 2"></div>
+                        <div class="manifesto-item"><img src="assets/manifesti1.jpg" alt="Manifesto 2"></div>
+                        <div class="manifesto-item"><img src="assets/manifesti3.jpg" alt="Manifesto 3"></div>
+                        <div class="manifesto-item"><img src="assets/manifesti4.jpg" alt="Manifesto 4"></div>
+                    </div>
+
+                    <button class="slider-arrow next" onclick="moveSlider(1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </section>
+            
+            <section id="cartoline-content" class="content-section hidden-content">
+                <div class="slider-container">
+                    <button class="slider-arrow prev" onclick="moveCartoline(-1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <div class="manifesti-wrapper">
+                        <div class="cartolina-item active-slide"><img src="assets/cartoline/ copia 2.png" alt="Cartolina 1"></div>
+                        <div class="cartolina-item"><img src="assets/cartoline/ copia 10.png" alt="Cartolina 2"></div>
+                        <div class="cartolina-item"><img src="assets/cartoline/ copia 3.png" alt="Cartolina 3"></div>
+                        <div class="cartolina-item"><img src="assets/cartoline/ copia 6.png" alt="Cartolina 4"></div>
+                        <div class="cartolina-item"><img src="assets/cartoline/ copia.png" alt="Cartolina 5"></div>
+                    </div>
+
+                    <button class="slider-arrow next" onclick="moveCartoline(1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </section>
+
+            <section id="tassonomia-content" class="content-section hidden-content">
+                <div class="slider-container">
+                    <button class="slider-arrow prev" onclick="cambiaTassonomia(-1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <div class="manifesti-wrapper">
+                        <div class="manifesto-item active-slide"><img src="assets/cartoline/TASSONOMIA2.png" alt="Tassonomia Fronte"></div>
+                        <div class="manifesto-item"><img src="assets/cartoline/TASSONOMIA1 .png" alt="Tassonomia Retro"></div>
+                    </div>
+                    <button class="slider-arrow next" onclick="cambiaTassonomia(1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        function toggleMobileMenu() {
+            document.getElementById("mobile-overlay-menu").classList.toggle("open");
+            document.querySelector(".hamburger-icon").classList.toggle("active");
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            const descAreas = document.querySelectorAll('.menu-description-area p');
+
+            // Funzione Cambio Contenuto
+            function showContent(targetId) {
+                // Aggiorna Menu
+                menuItems.forEach(item => item.classList.remove('active'));
+                // CORRETTO: Aggiunte le virgolette rovesciate (backticks)
+                const activeMenu = document.querySelector(`.menu-item[data-target="${targetId}"]`);
+                if (activeMenu) activeMenu.classList.add('active');
+
+                // Aggiorna Contenuto
+                contentSections.forEach(section => {
+                    section.classList.remove('active-content');
+                    section.classList.add('hidden-content');
+                });
+                // CORRETTO: Aggiunte le virgolette rovesciate
+                const activeSection = document.getElementById(`${targetId}-content`);
+                if (activeSection) {
+                    activeSection.classList.remove('hidden-content');
+                    activeSection.classList.add('active-content');
+                }
+
+                // Scrolla in alto la vista contenuto (utile su mobile)
+                if (window.innerWidth <= 768) {
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                } else {
+                    document.querySelector('.about-content-viewer').scrollTop = 0;
+                }
+
+                updateDesc(targetId);
+            }
+
+            // Funzione Descrizione
+            function updateDesc(targetId) {
+                descAreas.forEach(desc => {
+                    desc.classList.remove('active-desc');
+                    desc.classList.add('hidden-desc');
+                });
+                // CORRETTO: Aggiunte le virgolette rovesciate
+                const activeDesc = document.getElementById(`desc-${targetId}`);
+                if (activeDesc) {
+                    activeDesc.classList.remove('hidden-desc');
+                    activeDesc.classList.add('active-desc');
+                }
+            }
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    showContent(item.getAttribute('data-target'));
+                });
+                item.addEventListener('mouseenter', () => updateDesc(item.getAttribute('data-target')));
+                item.addEventListener('mouseleave', () => {
+                    const currentActive = document.querySelector('.menu-item.active');
+                    if (currentActive) updateDesc(currentActive.getAttribute('data-target'));
+                });
+            });
+
+            // LOGICA SLIDER
+            let idxM = 0, idxC = 0, idxT = 0;
+
+            window.moveSlider = function(d) {
+                const s = document.querySelectorAll('#manifesti-content .manifesto-item');
+                if(!s.length) return;
+                s[idxM].classList.remove('active-slide');
+                idxM = (idxM + d + s.length) % s.length;
+                s.forEach(img => img.classList.remove('active-slide'));
+                s[idxM].classList.add('active-slide');
+            }
+
+            window.moveCartoline = function(d) {
+                const s = document.querySelectorAll('#cartoline-content .cartolina-item');
+                if(!s.length) return;
+                s[idxC].classList.remove('active-slide');
+                idxC = (idxC + d + s.length) % s.length;
+                s.forEach(img => img.classList.remove('active-slide'));
+                s[idxC].classList.add('active-slide');
+            }
+
+            window.cambiaTassonomia = function(d) {
+                const s = document.querySelectorAll('#tassonomia-content .manifesto-item');
+                if(!s.length) return;
+                s[idxT].classList.remove('active-slide');
+                idxT = (idxT + d + s.length) % s.length;
+                s.forEach(el => el.classList.remove('active-slide'));
+                s[idxT].classList.add('active-slide');
+            }
+        });
+    </script>
+
+</body>
+</html>

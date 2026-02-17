@@ -1,0 +1,253 @@
+:root {
+    --primary: #d0acff;
+    --dark: #000;
+    --header-height: 70px;
+    --border-color: #000;
+}
+
+/* --- RESET & BASE --- */
+* { box-sizing: border-box; }
+
+body, h1, h2, h3, h4, p, span, div, a, button, input, textarea {
+    font-family: "nome-del-font", sans-serif; /* Sostituisci con il tuo font */
+    -webkit-font-smoothing: antialiased;
+    color: var(--dark);
+    border-radius: 0 !important;
+}
+
+html, body {
+    width: 100%; margin: 0; padding: 0;
+    background-color: #fff;
+    overflow: hidden; 
+}
+
+#main-header {
+    position: fixed; top: 0; left: 0; width: 100%;
+    height: var(--header-height);
+    padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000;
+    /* Effetto Vetro */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid #000;
+    box-sizing: border-box;
+}
+
+/* LOGO */
+.logo { 
+    font-family: "articulat-cf", sans-serif; 
+    font-size: 24px; 
+    font-weight: 700; /* Bold */
+    letter-spacing: -0.5px; 
+    z-index: 1001; 
+    text-decoration: none; 
+    color: #000; 
+}
+
+/* NAVIGAZIONE DESKTOP */
+.desktop-only-nav ul { 
+    list-style: none; display: flex; margin: 0; padding: 0; align-items: center; 
+}
+.desktop-only-nav ul li { margin: 0 25px; }
+
+/* LINK MENU DESKTOP -> Articulat CF BOLD */
+.desktop-only-nav ul li a { 
+    font-family: "articulat-cf", sans-serif; 
+    font-weight: 700; 
+    font-size: 14px;  
+    position: relative; 
+    text-decoration: none; 
+    color: #000; 
+}
+
+/* Linea hover */
+.desktop-only-nav ul li a::after { 
+    content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; 
+    background-color: #000; transition: width 0.3s; 
+}
+.desktop-only-nav ul li a:hover::after { width: 100%; }
+
+/* HAMBURGER E MOBILE MENU */
+.hamburger-icon { 
+    display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 2000; 
+}
+.hamburger-icon span { 
+    width: 30px; height: 2px; background: #000; transition: all 0.3s ease; 
+}
+
+#mobile-overlay-menu {
+    display: flex; 
+    position: fixed; 
+    top: 0; 
+    right: -100%;
+    width: 100%; 
+    height: 100vh; 
+    background: #fff; 
+    z-index: 1999;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    transition: right 0.5s ease;
+}
+
+#mobile-overlay-menu.open { 
+    right: 0; 
+}
+
+/* TASTO CHIUDI (X) - Forzato BOLD */
+.close-menu-btn { 
+    font-family: "articulat-cf", sans-serif !important; /* Font Forzato */
+    font-weight: 700 !important; /* Bold Forzato */
+    position: absolute; 
+    top: 30px; 
+    right: 30px; 
+    font-size: 30px; 
+    cursor: pointer; 
+    color: #000;
+}
+
+.mobile-links { 
+    list-style: none; 
+    padding: 0; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+}
+
+.mobile-links a { 
+    font-family: "articulat-cf", sans-serif !important; /* Font Forzato */
+    font-weight: 700 !important; 
+    font-size: 2.5rem; 
+    color: #000; 
+    text-decoration: none; 
+}
+
+
+.catalog-page-container {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    width: 100%;
+}
+
+/* Colonna Sinistra: Info Fisse */
+.catalog-fixed-info {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1.5px solid #000;
+    background-color: #fff;
+    height: 100%;
+    overflow-y: auto; /* Se il testo è lungo su schermi piccoli desktop */
+}
+
+.catalog-fixed-info h1 { font-size: 3em; margin-bottom: 30px; font-weight: 900; line-height: 1; }
+.catalog-fixed-info p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px; max-width: 500px; }
+
+/* Bottone */
+.request-copy-btn {
+    display: block; margin-top: 30px;
+    background: transparent; border: 1px solid #000;
+    padding: 15px 0; font-size: 1rem; font-weight: bold;
+    cursor: pointer; width: 100%; max-width: 300px;
+    transition: all 0.3s; text-align: center; text-transform: uppercase;
+}
+.request-copy-btn:hover { background: #000; color: #fff; }
+
+/* Colonna Destra: Flipbook */
+.catalog-viewer-area {
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100%;
+}
+
+.flipbook-wrapper {
+    width: 100%; height: 100%;
+    max-width: 1200px; /* Limite larghezza massima */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: none; align-items: center; justify-content: center;
+    z-index: 3000; backdrop-filter: blur(5px);
+}
+.modal-box {
+    width: 90%; max-width: 450px; padding: 40px;
+    background: white; border: 1.5px solid #000; position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+.modal-close {
+    position: absolute; top: 10px; right: 15px;
+    background: none; border: none; font-size: 30px; cursor: pointer;
+}
+.catalog-form input, .catalog-form textarea {
+    width: 100%; border: none; border-bottom: 1px solid #000;
+    padding: 15px 0; margin-bottom: 10px; outline: none;
+    font-size: 1rem; background: transparent;
+}
+.catalog-form input:focus, .catalog-form textarea:focus { border-bottom: 2px solid var(--primary); }
+.submit-btn {
+    width: 100%; padding: 15px; background: #000; color: #fff;
+    border: none; font-weight: bold; cursor: pointer; text-transform: uppercase;
+    margin-top: 20px; transition: opacity 0.3s;
+}
+.submit-btn:hover { opacity: 0.8; }
+
+
+/* ========================================= */
+/* === 4. MOBILE (Max-Width 768px) === */
+/* ========================================= */
+@media (max-width: 768px) {
+    /* Sblocchiamo lo scroll della pagina su mobile */
+    html, body { overflow-y: auto; height: auto; }
+
+    /* Header Mobile */
+    #main-header { padding: 0 20px; height: 60px; }
+    .desktop-only-nav { display: none !important; }
+    .hamburger-icon { display: flex; }
+
+    /* Layout a Colonna Singola */
+    .catalog-page-container {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        margin-top: 60px;
+    }
+
+    /* Info Section (Sopra) */
+    .catalog-fixed-info {
+        width: 100%;
+        height: auto; /* Altezza automatica in base al testo */
+        border-right: none;
+        border-bottom: 1px solid #000;
+        padding: 40px 20px;
+        align-items: flex-start; /* Allinea a sinistra */
+    }
+
+    .catalog-fixed-info h1 { font-size: 2.5em; margin-bottom: 20px; }
+    .catalog-fixed-info p { font-size: 1rem; max-width: 100%; }
+    .request-copy-btn { width: 100%; margin: 20px 0 0 0; }
+
+    /* Viewer Area (Sotto) */
+    .catalog-viewer-area {
+        width: 100%;
+        height: 500px; /* Diamo un'altezza fissa per permettere lo scroll del libro */
+        padding: 10px;
+        background: #fff;
+    }
+    
+    .flipbook-wrapper {
+        height: 100%; /* Occupa tutti i 500px assegnati */
+        box-shadow: none;
+    }
+}
